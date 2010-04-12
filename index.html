@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>The Current Song</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/css/pepper-grinder/jquery-ui-1.8.css"> 
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+</head>
+<body>
+  <h1>The Current Song</h1>
+    
+  <form name="current_song">
+    <ol>
+      <li>
+        <label for="date">Date (mm/dd/yyyy)</label><input name="date" type="date">
+      </li>
+      <li>
+        <label for="time">Time (hh:mm am)</label><input name="time" type="time">
+      </li>
+    </ol>
+    <input type="submit" value="Find song">
+  </form>
+  <div id="songs">
+    <ul>
+      {% for song in songs %}
+      <li>{{ song.title }} by {{ song.artist }} at {{ song.time }}</li>
+      {% endfor %}
+    </ul>
+    
+  </div>
+  <script type="text/javascript">
+	$(function() {
+	  var dateOptions = { 
+	    maxDate: '+0d', 
+	    minDate: new Date(2005, 11, 22)
+	  };
+		$("input[name='date']").datepicker(dateOptions);
+	});
+	</script>
+</body>
+</html>

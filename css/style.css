@@ -1,0 +1,17 @@
+form {
+    margin: 1.5em 0 0 0;
+    padding: 0;
+}
+
+form ol {
+    
+    list-style: none;
+}
+
+form li {
+    padding-bottom: 1em;
+}
+
+label {
+    display: block;
+}
