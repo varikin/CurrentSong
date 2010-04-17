@@ -1,6 +1,85 @@
+/*
+Modified html5doctor.com Reset Stylesheet
+v1.4.1 
+2010-03-01
+Author: Richard Clark - http://richclarkdesign.com
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:14pt;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+article,aside,canvas,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section,summary { 
+    display:block;
+}
+
+a {
+    margin:0;
+    padding:0;
+    border:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+body {
+    background: url('/images/background.png') repeat-y right top;
+    color: #FFFFFF;
+    line-height:1;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: 130%;
+}
+
+header {
+    margin-left: 160px;
+    margin-top: 60px;
+}
+
+header h1 {
+    font-size: 3em;
+}
+
+section {
+    margin-left: 155px;
+    background-color: #EBEBEB;
+    margin-top: 60px;
+    width: 500px;
+    border: 10px solid #BCBFB8;
+    border-radius: 40px 0 40px 40px;
+    padding: 25px;
+    color: #1B1B1B;
+    font-size: 1.1em;
+    line-height: 125%;
+}
+
+p {
+    margin-bottom: 25px;
+}
+
 form {
     margin: 1.5em 0 0 0;
-    padding: 0;
 }
 
 form ol {
@@ -15,3 +94,46 @@ form li {
 label {
     display: block;
 }
+
+input {
+    width: 375px;
+    font-size:100%;
+}
+
+button {
+    margin-left: 265px;
+    font-size:100%;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 117px;
+    background: #1F1F1F;
+    width: 100%;
+}
+
+footer ul {
+    position: absolute;
+    bottom: 36px;
+    width: 100%;
+    margin-left: 160px;
+}
+
+footer li {
+    display: inline;
+    list-style-type: none;
+    margin-right: 47px;
+    font-size: 1.3em;
+}
+
+footer li a, footer li a:visited {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.us {
+    font-size: 80%;
+    font-weight: 100;
+}
+
