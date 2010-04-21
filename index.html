@@ -11,7 +11,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 </head>
 <body>
-  <header><h1>the current.<span class="us">song</span></h1></header>
+  <header><h1>the current.<span class="thin">song</span></h1></header>
   <section>
     <p><em>
       Oh, radio song<br>
@@ -33,19 +33,12 @@
     <ol>
       {% for song in songs %}
       <li>
-        {{ song.title }} 
-        <span class="artist">by <cite>{{ song.artist }}</cite></span>
-         at <time>{{ song.time|date:"g:i a" }}</time></li>
+        {{ song.title }}<br>
+        <span class="byline">by <cite>{{ song.artist }}</cite>
+         at <time>{{ song.time|date:"g:i a" }}</time></span></li>
       {% endfor %}
     </ol>
   </section>
-  <footer>
-    <ul>
-      <li><a href="#" title="About.us">About.<span class="us">us</span></a></li>
-      <li><a href="#" title="Contact.us">Contact.<span class="us">us</span></a></li>
-      <li><a href="#" title="Follow.us">Follow.<span class="us">us</span></a></li>
-    </ul>
-  </footer>
   <script type="text/javascript">
 	$(function() {
 	  var dateOptions = { 

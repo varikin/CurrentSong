@@ -39,11 +39,11 @@ input, select {
 
 /*Opera Fix*/
 body:before {
-	content:"";
-	height:100%;
-	float:left;
-	width:0;
-	margin-top:-32767px;/
+    content:"";
+    height:100%;
+    float:left;
+    width:0;
+    margin-top:-32767px;/
 }
 
 body {
@@ -63,9 +63,8 @@ header h1 {
 }
 
 section {
-    height: auto;
     margin-left: 155px;
-    margin-bottom: 65px;
+    margin-bottom: 40px;
     background-color: #EBEBEB;
     width: 500px;
     border: 10px solid #BCBFB8;
@@ -74,7 +73,6 @@ section {
     color: #1B1B1B;
     font-size: 1.1em;
     line-height: 125%;
-    
 }
 
 p {
@@ -107,41 +105,12 @@ section ol {
     margin-top: 25px;
 }
 
-.artist {
+.byline {
     color: #A5A5A5;
     font-size: 95%;
 }
 
-footer {
-    position: relative;
-    height: 50px;
-    clear:both;
-    background: #1F1F1F;
-    width: 100%;
-    padding-top: 20px;
-}
-
-footer ul {
-    width: 60%;
-    margin-left: 160px;
-}
-
-footer li {
-    display: inline;
-    padding-right: 47px;
-    font-size: 1.3em;;
-}
-
-footer li:last-child {
-    padding: 0;
-}
-
-footer li a, footer li a:visited {
-    color: #FFFFFF;
-    text-decoration: none;
-}
-
-.us {
+.thin {
     font-size: 80%;
     font-weight: 100;
 }
