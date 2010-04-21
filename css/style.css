@@ -5,18 +5,12 @@ v1.4.1
 Author: Richard Clark - http://richclarkdesign.com
 */
 
-html, body, div, span, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-abbr, address, cite, code,
-del, dfn, em, img, ins, kbd, q, samp,
-small, strong, sub, sup, var,
-b, i,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section, summary,
-time, mark, audio, video {
+html, body, div, span,
+h1, h2, h3, h4, h5, h6, p,
+em, img, ol, ul, li,
+form, label,
+article, footer, header, 
+menu, nav, section,time {
     margin:0;
     padding:0;
     border:0;
@@ -26,8 +20,7 @@ time, mark, audio, video {
     background:transparent;
 }
 
-article,aside,canvas,details,figcaption,figure,
-footer,header,hgroup,menu,nav,section,summary { 
+article,footer,header,menu,nav,section { 
     display:block;
 }
 
@@ -44,8 +37,17 @@ input, select {
     vertical-align:middle;
 }
 
+/*Opera Fix*/
+body:before {
+	content:"";
+	height:100%;
+	float:left;
+	width:0;
+	margin-top:-32767px;/
+}
+
 body {
-    background: url('/images/background.png') repeat-y right top;
+    background: #550F1C url('/images/background.png') repeat-y right top;
     color: #FFFFFF;
     line-height:1;
     font-family: "Helvetica Neue", Arial, sans-serif;
@@ -53,8 +55,7 @@ body {
 }
 
 header {
-    margin-left: 160px;
-    margin-top: 60px;
+    margin: 25px auto 40px 160px;
 }
 
 header h1 {
@@ -62,33 +63,30 @@ header h1 {
 }
 
 section {
+    height: auto;
     margin-left: 155px;
+    margin-bottom: 65px;
     background-color: #EBEBEB;
-    margin-top: 60px;
     width: 500px;
     border: 10px solid #BCBFB8;
-    border-radius: 40px 0 40px 40px;
+    border-radius: 45px 45px 45px 45px;
     padding: 25px;
     color: #1B1B1B;
     font-size: 1.1em;
     line-height: 125%;
+    
 }
 
 p {
     margin-bottom: 25px;
 }
 
-form {
-    margin: 1.5em 0 0 0;
-}
-
-form ol {
-    
+ol, ul {    
     list-style: none;
 }
 
 form li {
-    padding-bottom: 1em;
+    display: inline;
 }
 
 label {
@@ -96,7 +94,7 @@ label {
 }
 
 input {
-    width: 375px;
+    width: 210px;
     font-size:100%;
 }
 
@@ -105,26 +103,37 @@ button {
     font-size:100%;
 }
 
+section ol {
+    margin-top: 25px;
+}
+
+.artist {
+    color: #A5A5A5;
+    font-size: 95%;
+}
+
 footer {
-    position: absolute;
-    bottom: 0;
-    height: 117px;
+    position: relative;
+    height: 50px;
+    clear:both;
     background: #1F1F1F;
     width: 100%;
+    padding-top: 20px;
 }
 
 footer ul {
-    position: absolute;
-    bottom: 36px;
-    width: 100%;
+    width: 60%;
     margin-left: 160px;
 }
 
 footer li {
     display: inline;
-    list-style-type: none;
-    margin-right: 47px;
-    font-size: 1.3em;
+    padding-right: 47px;
+    font-size: 1.3em;;
+}
+
+footer li:last-child {
+    padding: 0;
 }
 
 footer li a, footer li a:visited {

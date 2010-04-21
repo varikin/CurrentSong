@@ -13,14 +13,12 @@
 <body>
   <header><h1>the current.<span class="us">song</span></h1></header>
   <section>
-    <article>
-      <p><em>
-        Oh, radio song<br>
-        I missed your title. I'm screwed.<br>
-        How will I find you?!
-      </em></p>
-      <p>Enter the details below &amp; I'll do the rest!</p>
-    <article>
+    <p><em>
+      Oh, radio song<br>
+      I missed your title. I'm screwed.<br>
+      How will I find you?!
+    </em></p>
+    <p>Enter the details below &amp; I'll do the rest!</p>
     <form name="current_song">
       <ol>
         <li>
@@ -32,14 +30,14 @@
       </ol>
       <button type="submit">find songs</button>
     </form>
-    <article>
-    <article id="songs">
-      <ul>
-        {% for song in songs %}
-        <li>{{ song.title }} by {{ song.artist }} at {{ song.time }}</li>
-        {% endfor %}
-      </ul>
-    </article>
+    <ol>
+      {% for song in songs %}
+      <li>
+        {{ song.title }} 
+        <span class="artist">by <cite>{{ song.artist }}</cite></span>
+         at <time>{{ song.time|date:"g:i a" }}</time></li>
+      {% endfor %}
+    </ol>
   </section>
   <footer>
     <ul>
