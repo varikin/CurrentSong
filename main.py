@@ -1,13 +1,12 @@
-#!/usr/bin/env python
-
-import os
 from BeautifulSoup import BeautifulSoup
 from datetime import datetime, timedelta
-from google.appengine.api import urlfetch
-from google.appengine.ext import db, webapp
-from google.appengine.ext.webapp import template, util
+import logging
 
-PLAYLIST_URL = 'http://minnesota.publicradio.org/radio/services/the_current/playlist/playlist.php'
+from google.appengine.api import urlfetch
+from google.appengine.api.labs import taskqueue
+from google.appengine.ext import db
+from google.appengine.ext.webapp import template, WSGIApplication, RequestHandler
+from google.appengine.ext.webapp.util import run_wsgi_app
 
 class Song(db.Model):
     title = db.StringProperty(required=True)
@@ -16,20 +15,42 @@ class Song(db.Model):
 
     def __str__(self):
         return unicode(self)
-        
+
     def __unicode__(self):
-        return '%s by %s at %d:%d %d/%d/%d' % (self.title, self.artist, \
-                self.time.hour, self.time.minute, self.time.month, \
-                self.time.day, self.time.year)
+        return '%s by %s at %s' % (self.title, self.artist, \
+                self.time.strftime("%I:%M %p %m/%d/%Y"))
 
     def __repr__(self):
-        return str(self)
-        
+        return unicode(self)
 
-class MainHandler(webapp.RequestHandler):
+class PlaylistQueueItem(db.Model):
+    date = db.DateProperty(required=True)
+    added = db.DateTimeProperty(required=True, auto_now_add=True)
 
+    def __unicode__(self):
+        return self.date.strftime("%Y-%m-%d")
+
+    def __str__(self):
+        return unicode(self)
+
+    def __repr__(self):
+        return unicode(self)
+
+class PlaylistQueue(object):
+    def add(self, date):
+        db.put(PlaylistQueueItem(key_name=date.strftime("%Y-%m-%d"), date=date.date()))
+        taskqueue.add(url="/playlist")
+
+    def next(self):
+        date = None
+        task = PlaylistQueueItem.all().order("added").get()
+        if task is not None:
+            date = task.date
+            task.delete()
+        return date
+
+class SongHandler(RequestHandler):
     def get(self):
-        #db.put(self.get_playlist(datetime(2010, 3, 20)))
         date = self.request.get('date')
         time = self.request.get('time')
         context = {}
@@ -43,29 +64,37 @@ class MainHandler(webapp.RequestHandler):
                 songs.filter("time >", song_time - delta)
                 context['songs'] = songs
                 if songs.count() == 0:
-                    db.put(self.get_playlist(song_time))
+                    PlaylistQueue().add(song_time)
             except ValueError, e:
                 pass
         self.response.out.write(template.render('index.html', context))
-        
 
-    def get_playlist(self, time):
+class PlaylistHandler(RequestHandler):
+    URL = 'http://minnesota.publicradio.org/radio/services/the_current/playlist/playlist.php'    
+
+    def post(self):
+        logging.debug("Entering POST")
+        date = PlaylistQueue().next()
+        db.put(self.get_playlist(date))
+        logging.debug("Exiting POST")
+        
+    def get_playlist(self, date):
         songs = []
-        song_blocks = self.get_songblocks(time)
+        song_blocks = self.get_songblocks(date)
         for song_block in song_blocks:
             try:
                 hour = self.get_hour(song_block)
                 minute = self.get_minute(song_block)
-                song_time = datetime(time.year, time.month, time.day, hour, minute)
+                song_time = datetime(date.year, date.month, date.day, hour, minute)
                 artist, title = self.get_artist_title(song_block)
                 song = Song(key_name=str(song_time), title=title, artist=artist, time=song_time)
                 songs.append(song)
             except ValueError, e:
                 pass
-        return songs     
+        return songs
 
-    def get_songblocks(self, time):
-        url = '%s?month=%d&day=%d&year=%d' % (PLAYLIST_URL, time.month, time.day, time.year)
+    def get_songblocks(self, date):
+        url = '%s?month=%d&day=%d&year=%d' % (PlaylistHandler.URL, date.month, date.day, date.year)
         result = urlfetch.fetch(url)
         if result.status_code == 200:
             soup = BeautifulSoup(result.content)
@@ -93,10 +122,8 @@ class MainHandler(webapp.RequestHandler):
     def get_minute(self, song_block):
         return int(song_block.find('div', 'playTime').text[-2:])
 
-def main():
-    application = webapp.WSGIApplication([('/', MainHandler)], debug=True)
-    util.run_wsgi_app(application)
-
-
 if __name__ == '__main__':
-    main()
+    run_wsgi_app(WSGIApplication([
+        ('/', SongHandler),
+        ('/playlist', PlaylistHandler),
+    ]))
