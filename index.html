@@ -21,15 +21,17 @@
     <p>Enter the details below &amp; I'll do the rest!</p>
     <form name="current_song">
       <ol>
+        
         <li>
-          <input name="date" type="date" placeholder="date (mm/dd/yyyy)">
+          <input name="date" type="date" value="{{ date }}">
         </li>
         <li>
-          <input name="time" type="time" placeholder="time (hh:mm am/pm)">
+          <input name="time" type="time" value="{{ time }}" >
         </li>
       </ol>
       <button type="submit">find songs</button>
     </form>
+    <div id="loading"><img src="/images/ajax-loader.gif" alt="Loading" title="Loading"></div>
     <ol>
       {% for song in songs %}
       <li>

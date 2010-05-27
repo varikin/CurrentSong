@@ -8,6 +8,10 @@ from google.appengine.ext import db
 from google.appengine.ext.webapp import template, WSGIApplication, RequestHandler
 from google.appengine.ext.webapp.util import run_wsgi_app
 
+#Cheapest timezone hack ever!
+#Will need to change to 6 in a couple months:(
+CST = timedelta(hours=-5)
+
 class Song(db.Model):
     title = db.StringProperty(required=True)
     artist = db.StringProperty(required=True)
@@ -58,6 +62,7 @@ class SongHandler(RequestHandler):
             try:
                 song_time = datetime.strptime("%s %s" % (date, time), \
                     "%m/%d/%Y %I:%M %p")
+                d, t = self.get_datetime(song_time)
                 delta = timedelta(minutes=10)
                 songs = Song.all().order('time')
                 songs.filter("time <", song_time + delta)
@@ -67,7 +72,17 @@ class SongHandler(RequestHandler):
                     PlaylistQueue().add(song_time)
             except ValueError, e:
                 pass
+                d, t = self.get_datetime()
+        else:
+            d, t = self.get_datetime()
+        context['date'] = d
+        context['time'] = t
         self.response.out.write(template.render('index.html', context))
+    
+    def get_datetime(self, dt=None):
+        if dt is None:
+            dt = datetime.now() + CST
+        return dt.strftime("%m/%d/%Y"), dt.strftime("%I:%M %p")
 
 class PlaylistHandler(RequestHandler):
     URL = 'http://minnesota.publicradio.org/radio/services/the_current/playlist/playlist.php'    

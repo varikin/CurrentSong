@@ -87,17 +87,14 @@ form li {
     display: inline;
 }
 
-label {
-    display: block;
-}
-
 input {
     width: 210px;
     font-size:100%;
 }
 
 button {
-    margin-left: 265px;
+    margin-top: 5px;
+    margin-left: 323px;
     font-size:100%;
 }
 
@@ -108,6 +105,10 @@ section ol {
 .byline {
     color: #A5A5A5;
     font-size: 95%;
+}
+
+#loading {
+    display: none;
 }
 
 .thin {
