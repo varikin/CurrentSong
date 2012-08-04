@@ -46,12 +46,22 @@ body:before {
     margin-top:-32767px;/
 }
 
+body, html {
+    height: 100%;
+}
+
 body {
-    background: #550F1C url('/images/background.png') repeat-y right top;
+    background: #601e2f url('/images/background.png') repeat-y center;
+    background-size: 100%;
     color: #FFFFFF;
     line-height:1;
     font-family: "Helvetica Neue", Arial, sans-serif;
     letter-spacing: 130%;
+}
+
+#wrapper {
+    /* for the footer */
+    min-height: 100%;
 }
 
 header {
@@ -62,9 +72,8 @@ header h1 {
     font-size: 3em;
 }
 
-section {
+#main {
     margin-left: 155px;
-    margin-bottom: 40px;
     background-color: #EBEBEB;
     width: 500px;
     border: 10px solid #BCBFB8;
@@ -73,6 +82,10 @@ section {
     color: #1B1B1B;
     font-size: 1.1em;
     line-height: 125%;
+
+    /* Needed for the footer */
+    padding-bottom: 100px;
+    overflow: auto;
 }
 
 p {
@@ -98,7 +111,7 @@ button {
     font-size:100%;
 }
 
-section ol {
+#main ol {
     margin-top: 25px;
 }
 
@@ -115,4 +128,23 @@ section ol {
     font-size: 80%;
     font-weight: 100;
 }
+
+footer {
+    background-color: #2f2c2e;
+    position: relative;
+    margin-top: -100px; /* negative value of footer height */
+    height: 100px;
+    clear: both;
+}
+
+footer ul {
+    padding-top:35px;
+    padding-left: 160px;
+}
+
+footer li {
+    display: inline;
+    margin-right: 20px;
+}
+
 
