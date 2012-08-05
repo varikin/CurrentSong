@@ -35,7 +35,7 @@ class SongHandler(RequestHandler):
             d, t = self.get_datetime()
         context['date'] = d
         context['time'] = t
-        self.response.out.write(template.render('index.html', context))
+        self.response.out.write(template.render('templates/index.html', context))
     
     def get_datetime(self, dt=None):
         if dt is None:

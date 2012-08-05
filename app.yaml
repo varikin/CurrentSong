@@ -1,14 +1,14 @@
 application: thecurrentsong
-version: 4
+version: 5
 runtime: python
 api_version: 1
 
 handlers:
 - url: /css
-  static_dir: css
+  static_dir: assets/css
 
 - url: /images
-  static_dir: images
+  static_dir: assets/images
 
 - url: .*
   script: main.py
