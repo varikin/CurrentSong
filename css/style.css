@@ -20,9 +20,6 @@ menu, nav, section,time {
     background:transparent;
 }
 
-article,footer,header,menu,nav,section { 
-    display:block;
-}
 
 a {
     margin:0;
@@ -56,7 +53,6 @@ body {
     color: #FFFFFF;
     line-height:1;
     font-family: "Helvetica Neue", Arial, sans-serif;
-    letter-spacing: 130%;
 }
 
 #wrapper {
@@ -64,15 +60,23 @@ body {
     min-height: 100%;
 }
 
+#main {
+    /* Needed for the footer */
+    padding-bottom: 140px;
+    overflow: auto;
+}
+
 header {
-    margin: 25px auto 40px 160px;
+    padding-top: 25px;
+    padding-bottom: 40px;
+    margin-left: 160px;
 }
 
 header h1 {
     font-size: 3em;
 }
 
-#main {
+#song-list {
     margin-left: 155px;
     background-color: #EBEBEB;
     width: 500px;
@@ -82,10 +86,6 @@ header h1 {
     color: #1B1B1B;
     font-size: 1.1em;
     line-height: 125%;
-
-    /* Needed for the footer */
-    padding-bottom: 100px;
-    overflow: auto;
 }
 
 p {
@@ -112,7 +112,7 @@ button {
 }
 
 #main ol {
-    margin-top: 25px;
+    padding-top: 25px;
 }
 
 .byline {
@@ -138,7 +138,7 @@ footer {
 }
 
 footer ul {
-    padding-top:35px;
+    padding-top: 35px;
     padding-left: 160px;
 }
 
