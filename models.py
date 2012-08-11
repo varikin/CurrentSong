@@ -1,4 +1,6 @@
+from datetime import date
 from google.appengine.ext import db
+
 
 class Song(db.Model):
     title = db.StringProperty(required=True)
@@ -20,3 +22,21 @@ class Song(db.Model):
     def __repr__(self):
         return unicode(self)
 
+class PlaylistTask(db.Model):
+    """A playlist task."""
+    date = db.DateProperty(required=True)
+    added = db.DateTimeProperty(required=True, auto_now_add=True)
+
+    def __init__(self, *args, **kwargs):
+        playlist_date = kwargs.get('date', date.today())
+        kwargs['key_name'] = playlist_date.strftime("%Y-%m-%d")
+        super(PlaylistTask, self).__init__(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.date.strftime("%Y-%m-%d")
+
+    def __str__(self):
+        return unicode(self)
+
+    def __repr__(self):
+        return unicode(self)
