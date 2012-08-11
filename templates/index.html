@@ -21,22 +21,21 @@
         <p>Enter the details below &amp; I'll do the rest!</p>
         <form name="current_song">
           <ol>
-            <li><input name="date" type="text" value="{{ date }}"></li>
-            <li><input name="time" type="time" value="{{ time }}"></li>
+            <li><input name="date" type="text" value=""></li>
+            <li><input name="time" type="time" value=""></li>
           </ol>
-          <button type="submit">find songs</button>
+          <script type="text/x-handlebars">
+            {{#view Ember.Button target="CurrentSong.songsController" action="loadSongs"}} find songs {{/view}}
+          </script>
         </form>
-        <ol>
-          {% for song in songs %}
-          <li>
-            {{ song.title }} <br>
+        <script type="text/x-handlebars">
+          {{#collection contentBinding="CurrentSong.songsController" tagName="ol"}}
+            {{content.title}} <br> 
             <span class="byline">
-              by <cite>{{ song.artist }}</cite>
-              at <time>{{ song.time|date:"g:i a" }}</time>
+              by <cite>{{content.artist}}</cite> at <time>{{content.time}}</time>
             </span>
-           </li>
-          {% endfor %}
-        </ol>
+          {{/collection}}
+        </script>
       </div>
     </div>
   </div>
@@ -51,7 +50,7 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.7.2.min.js"><\/script>')</script>
   <script src="/js/libs/handlebars-1.0.0.beta.6.js"></script>
-  <script src="/js/libs/ember-1.0.pre.min.js"></script>
+  <script src="//cloud.github.com/downloads/emberjs/ember.js/ember-1.0.pre.js"></script>
   <script src="/js/app.js"></script>
 </body> 
 </html>
