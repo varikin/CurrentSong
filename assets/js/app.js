@@ -12,19 +12,15 @@ CurrentSong.Song = Ember.Object.extend({
 
 // Song Controller for the Current Song
 CurrentSong.songsController  = Ember.ArrayController.create({
-	content: [
-		CurrentSong.Song.create({'title': 'a title', 'time': 'a time', 'artist': "an artist"}),
-		CurrentSong.Song.create({'title': 'a title', 'time': 'a time', 'artist': "an artist"}),
-		CurrentSong.Song.create({'title': 'a title', 'time': 'a time', 'artist': "an artist"})
-	],
+	content: [],
 	loadSongs: function(){
 		var self = this;
-		// $.getJSON('api/songs', function(data) {
-		// 	self.clear();
-		// 	data.forEach(function(item){
-		// 		self.pushObject(CurrentSong.Song.create(item));
-		// 	});
-		// });
+		$.getJSON('api/songs', function(data) {
+			self.clear();
+			data.forEach(function(item){
+				self.pushObject(CurrentSong.Song.create(item));
+			});
+		});
 	}
 });
 
