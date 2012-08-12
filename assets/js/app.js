@@ -1,5 +1,3 @@
-Ember.LOG_BINDINGS = true;
-
 // Current Song EmberJS application
 var CurrentSong = Ember.Application.create();
 
@@ -23,5 +21,11 @@ CurrentSong.songsController  = Ember.ArrayController.create({
 		});
 	}
 });
+
+// jQuery stuff
+$(document).ready(function() {
+	$('input[name=date]').datepicker({ maxDate: new Date() });
+});
+
 
 
