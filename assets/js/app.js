@@ -31,17 +31,45 @@ CurrentSong.songsController  = Ember.ArrayController.create({
 	}
 });
 
+
+CurrentSong.getParams = function() {
+	var query = window.location.search.substring(1);
+	var params = {};
+	var pairs = query.split("&");
+	if (pairs.length === 1 && pairs[0] === '') {
+		return params; // bug out early
+	}
+	var paramRegex = /(.+)=(.*)/;
+	for (var i = 0; i < pairs.length; i++) {
+		var param = paramRegex.exec(pairs[i]);
+		if (param !== null) {
+			params[param[1]] = decodeURIComponent(param[2]);	
+		}
+	}
+	return params;
+};
+
+
 // jQuery stuff
 $(document).ready(function() {
-	var dateField = $('input[name=date]');
-	var now = moment();
-	$('input[name=time]').val(now.format('h:mm A'));
-	dateField.val(now.format('M/D/YYYY'));
-	dateField.datepicker({ 
+	var params = CurrentSong.getParams();
+	var date = params['date'];
+	var time = params['time'];
+	if (date === undefined || date === '') {
+		date = moment().format('M/D/YYYY');
+	}
+	if (time === undefined || time === '') {
+		time = moment().format('h:mm A');
+	}
+
+	$('input[name=time]').val(time);
+	$('input[name=date]').val(date).datepicker({ 
 		maxDate: new Date(),
 		dateFormat: "m/d/yy"
 	});
 });
+
+
 
 
 
