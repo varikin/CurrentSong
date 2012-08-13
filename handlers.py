@@ -11,7 +11,8 @@ from models import Song
 #Cheapest timezone hack ever!
 #Will need to change to 6 in a couple months:(
 CST = timedelta(hours=-5)
-TIME_FORMAT = "%m/%d/%Y %I:%M %p"
+DATETIME_FORMAT = "%m/%d/%Y %I:%M %p"
+TIME_FORMAT = "%I:%M %p"
 
 class SongsApi(RequestHandler):
     def get(self):
@@ -21,7 +22,7 @@ class SongsApi(RequestHandler):
         try:
             # Parse the date & time into a datetime object
             time_str = "%s %s" % (date, time)
-            song_time = datetime.strptime(time_str, TIME_FORMAT)
+            song_time = datetime.strptime(time_str, DATETIME_FORMAT)
         except ValueError, e:
             # Or just use right now
             song_time = datetime.now() + CST
@@ -48,7 +49,7 @@ class SongsApi(RequestHandler):
                 "title": song.title,
                 "time": datetime.strftime(song.time, TIME_FORMAT),
             })
-
+        self.response.headers['Content-Type'] = 'application/json'
         self.response.out.write(simplejson.dumps(results))
     
 class Playlist(RequestHandler):
