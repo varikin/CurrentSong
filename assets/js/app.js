@@ -12,11 +12,13 @@ CurrentSong.Song = Ember.Object.extend({
 CurrentSong.songsController  = Ember.ArrayController.create({
 	content: [],
 	loadSongs: function(){
+		var data = $('form[name=current_song]').serialize(); 
+
 		var self = this;
 		$.ajax({
 			url: 'api/songs',
 			type: 'GET',
-			data: $('form[name=current_song]').serialize(),
+			data: data,
 			success: function(data) {
 				console.log(data);
 				self.clear();
@@ -55,11 +57,31 @@ $(document).ready(function() {
 	var params = CurrentSong.getParams();
 	var date = params['date'];
 	var time = params['time'];
+	var now = new Date();
 	if (date === undefined || date === '') {
-		date = moment().format('M/D/YYYY');
+		var month = now.getMonth() + 1;
+		var day = now.getDate();
+		var year = now.getFullYear();
+		date = month + '/' + day + '/' + year;
 	}
 	if (time === undefined || time === '') {
-		time = moment().format('h:mm A');
+		var hour = now.getHours();
+		var minute = now.getMinutes();
+		var merdian;
+		if (hour < 12) {
+			merdian = 'AM';
+		} else {
+			merdian = 'PM';
+			if (hour > 12) {
+				hour = hour - 12;
+			}
+		} 
+		if (hour == 0) {
+			hour = 12;
+		}
+		minute = minute < 10 ? '0' + minute : minute;
+
+		time = hour + ':' + minute + ' ' + merdian;	
 	}
 
 	$('input[name=time]').val(time);
