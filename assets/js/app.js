@@ -34,30 +34,13 @@ CurrentSong.songsController  = Ember.ArrayController.create({
 });
 
 
-CurrentSong.getParams = function() {
-	var query = window.location.search.substring(1);
-	var params = {};
-	var pairs = query.split("&");
-	if (pairs.length === 1 && pairs[0] === '') {
-		return params; // bug out early
-	}
-	var paramRegex = /(.+)=(.*)/;
-	for (var i = 0; i < pairs.length; i++) {
-		var param = paramRegex.exec(pairs[i]);
-		if (param !== null) {
-			params[param[1]] = decodeURIComponent(param[2]);	
-		}
-	}
-	return params;
-};
-
-
 // jQuery stuff
 $(document).ready(function() {
-	var params = CurrentSong.getParams();
-	var date = params['date'];
-	var time = params['time'];
-	var now = new Date();
+	var q = new Q();
+	var date = q.get('date');
+	var time = q.get('time');
+	
+    var now = new Date();
 	if (date === undefined || date === '') {
 		var month = now.getMonth() + 1;
 		var day = now.getDate();
